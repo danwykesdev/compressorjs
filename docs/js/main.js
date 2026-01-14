@@ -86,11 +86,11 @@ window.addEventListener('DOMContentLoaded', function () {
         this.compress(e.target.files ? e.target.files[0] : null);
       },
 
-      dragover: function(e) {
+      dragover: function (e) {
         e.preventDefault();
       },
 
-      drop: function(e) {
+      drop: function (e) {
         e.preventDefault();
         this.compress(e.dataTransfer.files ? e.dataTransfer.files[0] : null);
       },
@@ -105,26 +105,9 @@ window.addEventListener('DOMContentLoaded', function () {
       },
     },
 
-    mounted: function () {
-      if (!XMLHttpRequest) {
-        return;
-      }
-
-      var vm = this;
-      var xhr = new XMLHttpRequest();
-
-      xhr.onload = function () {
-        var blob = xhr.response;
-        var date = new Date();
-
-        blob.lastModified = date.getTime();
-        blob.lastModifiedDate = date;
-        blob.name = 'picture.jpg';
-        vm.compress(blob);
-      };
-      xhr.open('GET', 'images/picture.jpg');
-      xhr.responseType = 'blob';
-      xhr.send();
+    updated: function () {
+      window.dispatchEvent(new Event('vue-updated'));
     },
+
   });
 });
